@@ -56,18 +56,21 @@ def getMaxAdditionalDinersCount(N: int, K: int, M: int, S: List[int]) -> int:
     # Check if there's space before the first diner
     space_before_first = S[0] - K - 1
     if space_before_first >= 0:
-        available_seats.extend(range(1, S[0] - K))
+        for i in range(1, S[0] - K):
+            available_seats.append(i)
 
     # Check if there's space between diners
     for i in range(1, M):
         space_between = S[i] - S[i-1] - 2*K - 1
         if space_between >= 0:
-            available_seats.extend(range(S[i-1] + K + 1, S[i] - K))
+            for j in range(S[i-1] + K + 1, S[i] - K):
+                available_seats.append(j)
 
     # Check if there's space after the last diner
     space_after_last = N - S[-1] - K
     if space_after_last >= 0:
-        available_seats.extend(range(S[-1] + K + 1, N + 1))
+        for i in range(S[-1] + K + 1, N + 1):
+            available_seats.append(i)
 
     optimized_seats = available_seats
 
