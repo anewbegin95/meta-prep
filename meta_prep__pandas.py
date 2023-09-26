@@ -37,6 +37,8 @@ If you're up for an extra challenge, consider performing a time series analysis 
 """
 # %%
 import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import ticker
 
 # %% 1. Load the Datasets: Load the sales_data.csv and customer_data.csv datasets into Pandas DataFrames.
 cust_csv = 'customer_data.csv'
@@ -92,5 +94,95 @@ sales_df['PctChngQuantity'] = (sales_df.Quantity - sales_df.Quantity.shift()) / 
 print(sales_df.head())
 # %%
 """
+#5: Creating New Rows
 
+Problem: Add a row representing a bulk purchase of 50 units of Product_A by a new customer.
+Expected Output: The updated sales data with the new row.
 """
+# sales_df.loc[len(sales_df.index)] = [31, 121, 'Product_A', 50, 10, 500, '2023-09-20'] 
+# print(sales_df.tail())
+
+# cust_df.loc[len(cust_df.index)] = [121, 'Frank Darkling', 'Cleveland', 'OH', 'USA']
+# print(cust_df.tail())
+# %%
+"""
+#6: Bar Chart
+
+Problem: Create a bar chart showing the total sales amount for each product.
+Expected Output: A bar chart with product names on the x-axis and total sales on the y-axis.
+"""
+sales_by_prod_df = sales_df.groupby('Product')['TotalAmount'].sum().sort_values(ascending=False).reset_index()
+x = sales_by_prod_df['Product'].to_list()
+y = sales_by_prod_df['TotalAmount'].to_list()
+fig, ax = plt.subplots()
+p = ax.bar(x, y, color='Green')
+ax.set_title('Total sales by product')
+ax.set_xlabel('Product')
+ax.set_ylabel('Total sales')
+ax.bar_label(p, label_type='edge')
+plt.show()
+# %%
+"""
+#7: Line Chart
+
+Problem: Create a line chart showing the trend of total sales over time.
+Expected Output: A line chart with dates on the x-axis and total sales on the y-axis.
+"""
+sales_df = sales_df.sort_values('TransactionDate', ascending=True)
+X = sales_df['TransactionDate'].tolist()
+
+sale_counter = 0
+Y = []
+for sale in sales_df['TotalAmount'].to_list():
+    sale_counter += sale
+    Y.append(sale_counter)
+
+fig, ax = plt.subplots()
+
+p = ax.plot(X, Y)
+ax.xaxis.set_major_locator(ticker.AutoLocator())
+plt.xticks(rotation=45)
+plt.show()
+# %%
+"""
+#8: Scatter Plot
+
+Problem: Create a scatter plot showing the relationship between Quantity and Total Amount.
+Expected Output: A scatter plot with Quantity on the x-axis and Total Amount on the y-axis.
+"""
+x = sales_df['Quantity'].tolist()
+y = sales_df['TotalAmount'].tolist()
+
+ax, fig = plt.subplots()
+p = fig.scatter(x, y)
+fig.set_xlim(0, 10)
+fig.set_ylim(0, 150)
+plt.show()
+# %%
+"""
+#9: Histogram
+Problem: Create a histogram showing the distribution of Total Amount.
+Expected Output: A histogram representing the frequency distribution.
+"""
+x = sales_df['TotalAmount'].tolist()
+ax, fig = plt.subplots()
+p = fig.hist(x, 10)
+plt.show()
+# %%
+"""
+#10: Pie Chart
+Problem: Create a pie chart showing the proportion of sales for each product.
+Expected Output: A pie chart displaying the percentage distribution.
+"""
+sales_by_prod_df = sales_df.groupby('Product')['TotalAmount'].sum().sort_values(ascending=False).reset_index()
+z = sales_by_prod_df['Product'].to_list()
+x = sales_by_prod_df['TotalAmount'].to_list()
+fig, ax = plt.subplots()
+p = ax.pie(x, labels=z)
+ax.set_title('Total sales by product')
+ax.legend()
+# ax.set_xlabel('Product')
+# ax.set_ylabel('Total sales')
+# ax.bar_label(p, label_type='edge')
+plt.show()
+# %%
