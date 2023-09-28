@@ -44,8 +44,8 @@ def gradient_descent(m_now, b_now, points, L):
 
     return m, b
 # %%
-m = .34
-b = 50
+m = .25
+b = 60
 L = 0.00001
 epochs = 1000
 
