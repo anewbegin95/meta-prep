@@ -6,6 +6,8 @@ csv = 'study_info.csv'
 
 df = pd.read_csv(csv)
 
+print(df.describe())
+
 study_time = df['study_time'].tolist()
 exam_score = df['exam_score'].tolist()
 # %%
@@ -32,6 +34,7 @@ def gradient_descent(m_now, b_now, points, L):
     for i in range(n):
         x = points.iloc[i].study_time
         y = points.iloc[i].exam_score
+        # print(x, y)
 
         m_gradient += -(2/n) * x * (y - (m_now * x + b_now))
         b_gradient += -(2/n) * (y - (m_now * x + b_now))
@@ -41,16 +44,25 @@ def gradient_descent(m_now, b_now, points, L):
 
     return m, b
 # %%
-m = 0
-b = 0
-L = 0.001
-epochs = 100
+m = .34
+b = 50
+L = 0.00001
+epochs = 1000
 
 for i in range(epochs):
     m, b = gradient_descent(m, b, df, L)
+    if i % 100 == 0:  # Print loss every 100 epochs
+        loss = loss_function(m, b, df)
+        print(f'Epoch: {i}, Loss: {loss}, m: {m}, b: {b}')
+
+loss = loss_function(m, b, df)
+
+print(f'Final loss: {loss}, m: {m}, Final b: {b}')
 
 print(m, b)
 plt.scatter(df.study_time, df.exam_score, color="Black")
-plt.plot(list(range(45, 350)), [m * x + b for x in range(45, 350)], color="Red")
+plt.plot(list(range(55, 170)), [m * x + b for x in range(55, 170)], color="Red")
+plt.xlim(1, 170)
+plt.ylim(1, 170)
 plt.show()
 # %%
