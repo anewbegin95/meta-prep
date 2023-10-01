@@ -9,38 +9,40 @@ def getArtisticPhotographCount(N: int, C: str, X: int, Y: int) -> int:
     valid_photo_count = 0
     photo_combo = []
     photo_range = range(N)
-    distance_range = range(X, Y + 2)
+    distance_range = range(X, Y + 1)
     for x in photo_range:
+        print(C[x])
         if C[x] == 'P':
             print(f"Found {C[x]}! It's the {x} character in the string")
 
             for dist in distance_range:
                 check_after_p = C.index(C[x]) + dist
                 if check_after_p < 0:
-                    print(f'Index is before the beginning of the string and out of range')
+                    # print(f'Index is before the beginning of the string and out of range')
                     continue
                 elif check_after_p >= N:
                     continue
                 else:
                     pos_a_check = C[check_after_p]
-                    print(f'P is {dist} away from {pos_a_check}, the {check_after_p} character')
+                    # print(f'P is {dist} away from {pos_a_check}, the {check_after_p} character')
                 
                     if pos_a_check == 'A':
-                        print(f'Found A {dist} away from P!')
+                        # print(f'Found A {dist} away from P!')
                         
                         for dist2 in distance_range:
                             check_after_a = C.index(C[x]) + dist + dist2
                             if check_after_a < 0:
-                                print(f'Index is before the beginning of the string and out of range')
+                                # print(f'Index is before the beginning of the string and out of range')
                                 continue
                             elif check_after_a >= N:
                                 continue
                             else:
                                 pos_b_check = C[check_after_a]
-                                print(f'A is {dist2} away from {pos_b_check}, the {check_after_a} character')
+                                # print(f'A is {dist2} away from {pos_b_check}, the {check_after_a} character')
                                 if pos_b_check == 'B':
-                                    print(f'Found B {dist2} away from A! All conditions passed!')
+                                    # print(f'Found B {dist2} away from A! All conditions passed!')
                                     valid_photo_count += 1
+                                    continue
 
                 check_before_p = C.index(C[x]) - dist
                 if check_before_p < 0:
@@ -69,6 +71,7 @@ def getArtisticPhotographCount(N: int, C: str, X: int, Y: int) -> int:
                                 if neg_b_check == 'B':
                                     print(f'Found B {dist2 * -1} away from A! All conditions passed!')
                                     valid_photo_count += 1
+                                    continue
 
     return valid_photo_count
 
