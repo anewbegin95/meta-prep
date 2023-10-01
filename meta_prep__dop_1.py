@@ -70,23 +70,6 @@ def getArtisticPhotographCount(N: int, C: str, X: int, Y: int) -> int:
                                     print(f'Found B {dist2 * -1} away from A! All conditions passed!')
                                     valid_photo_count += 1
 
-
-                #         print(dist2, C[C.index(C[C.index(C[x]) - dist]) - dist2], C[C.index(C[C.index(C[x]) + dist]) + dist2])
-                #         if C[C.index(C[C.index(C[x]) - dist]) - dist2] == 'B' or C[C.index(C[C.index(C[x]) + dist]) + dist2] == 'B':
-                #             print('All conditions passed!')
-                #             valid_photo_count += 1
-
-                # elif pos_b_check != 'A' or neg_b_check != 'A':
-                #     print('No A found within our distance range from P')
-                #     break
-                #     for dist2 in distance_range:
-                #         print(dist2, C[C.index(C[C.index(C[x]) - dist]) - dist2], C[C.index(C[C.index(C[x]) + dist]) + dist2])
-                #         if C[C.index(C[C.index(C[x]) - dist]) - dist2] == 'B' or C[C.index(C[C.index(C[x]) + dist]) + dist2] == 'B':
-                #             print('All conditions passed!')
-                #             valid_photo_count += 1
-                #         else:
-                #             validphoto = False
-
     return valid_photo_count
 
 # %%
